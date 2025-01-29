@@ -1,0 +1,150 @@
+@use "./variables" as *;
+@use "./mixins" as *;
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	//font-family: $main-font--regular;
+
+	//@include font($fs-xl, $leading-xrelaxed);
+
+	color: var(--color-text);
+	background: var(--color-body);
+	-webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	//margin: 0 0 $leading-relaxed;
+
+	//font-family: $main-font--regular;
+	font-weight: 700;
+}
+
+h1 {
+	//font-size: rem($fs-6xl);
+
+	//line-height: rem($leading-xloose);
+	margin-bottom: 0;
+}
+
+h2 {
+	position: relative;
+
+	//font-size: rem($fs-5xl);
+
+	//line-height: rem($leading-60);
+	margin-bottom: 27px;
+	padding-bottom: 22px;
+
+	//@include spacing($fs-5xl, 1.5);
+}
+
+h3 {
+	//font-size: rem($fs-xl);
+	font-weight: 500;
+
+	//line-height: rem($leading-xrelaxed);
+	color: var(--color-primary);
+
+	//margin-bottom: $spacing-lg;
+
+	//@include spacing($fs-xl, 14.5);
+}
+
+h4 {
+	//font-size: rem($fs-17);
+
+	//line-height: rem($leading-25_5);
+	color: var(--color-primary);
+
+	//margin-bottom: rem(24px);
+
+	//@include spacing($fs-17, 0.5);
+}
+
+h5 {
+	// font-size: rem($fs-base);
+}
+
+h6 {
+	// font-size: rem($fs-sm);
+}
+
+p {
+	//margin: 0 0 calc(#{$spacing-lg} + 1px);
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+strong,
+b {
+	font-weight: 700;
+}
+
+a {
+	// font-size: rem($fs-17);
+	color: var(--color-text);
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+ul,
+ol {
+	list-style-position: outside;
+
+	//margin: 0 0 $spacing-md $spacing-lg;
+	padding: 0;
+
+	li {
+		//margin: 0 0 $spacing-sm;
+	}
+}
+
+blockquote {
+	//margin: 0 0 $spacing-md;
+	color: var(--color-text-secondary);
+
+	//border-left: $border-width-sm solid var(--color-primary);
+	font-style: italic;
+
+	//padding-left: $spacing-md;
+}
+
+code,
+pre {
+	padding: 2px 4px;
+	font-family: "Courier New", Courier, monospace;
+
+	// font-size: rem($fs-sm);
+	background-color: var(--color-background-secondary);
+
+	//border-radius: $radius-sm;
+}
+
+img {
+	width: 100%;
+	height: auto;
+}
+
+.container {
+	position: relative;
+
+	//padding: 0 $spacing-xs;
+	margin-inline: auto;
+
+	//max-width: $container-xl;
+}

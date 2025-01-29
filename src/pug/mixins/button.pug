@@ -1,0 +1,12 @@
+mixin button(text, className)
+  button(class=className) 
+    if text
+      | #{text}
+    block
+
+
+mixin link(href, text, className)
+  a(href=href class=className)
+    if text
+      | #{text}
+    block
