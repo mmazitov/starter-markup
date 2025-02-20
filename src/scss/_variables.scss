@@ -1,16 +1,47 @@
+@use "./fonts" as *;
+
+/*
+	Updated SCSS variables file that includes:
+  - A color-scheme declaration to support both light and dark modes.
+  - A media query to automatically switch to dark theme variables when the user prefers dark mode.
+  - A manual override via the .dark-theme class.
+*/
+
 :root {
-	/* Color Palette */
-	--color-primary: #6d95fc;
-	--color-primary-light: #6d95fc8c;
-	--color-primary-dark: #6d95fc59;
-	--color-secondary: #6b7280;
-	--color-background: #000913;
-	--color-background-secondary: #6d95fc00;
-	--color-background-secondary-light: #1515154f;
-	--color-text: #fff;
-	--color-text-secondary: #94a3b8;
-	--color-border: #fff;
-	--color-border-secondary: #6d95fc;
-	--color-error: #f00;
-	--color-body: #000;
+	/* Light theme variables */
+	--color-primary: #222531;
+	--color-secondary: #616e85;
+	--color-tertiary: #eff2f5;
+	--color-fourth: #fff;
+	--color-fifth: #4c57fb;
+	--color-six: #d9d9d9;
+	--color-seven: #ecedff;
+
+	/* Inform the browser that both light and dark color schemes are available */
+	color-scheme: light dark;
+}
+
+/* Automatically apply dark theme variables for users who prefer dark mode */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-primary: #eff2f5;
+		--color-secondary: #d9d9d9;
+		--color-tertiary: #222531;
+		--color-fourth: #856175a8;
+		--color-fifth: #4c57fb;
+		--color-six: #616e85;
+		--color-seven: #1c1f2a;
+	}
+}
+
+/* Option for a manual dark theme override */
+
+.dark-theme {
+	--color-primary: #eff2f5;
+	--color-secondary: #d9d9d9;
+	--color-tertiary: #222531;
+	--color-fourth: #856175a8;
+	--color-fifth: #4c57fb;
+	--color-six: #616e85;
+	--color-seven: #1c1f2a;
 }

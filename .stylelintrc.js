@@ -123,9 +123,9 @@ module.exports = {
 		"declaration-no-important": true, // Disallow !important
 		"declaration-colon-space-before": "never", // No space before colon in declarations
 		"declaration-colon-space-after": [
-			"always", // Требуется пробел после двоеточия
+			"always", // Space after colon in declarations
 			{
-				ignore: ["multi-line"], // Игнорирует многострочные записи
+				ignore: ["multi-line"], // Ignore multi-line declarations
 				severity: "warning", // or "error" if you want it to be an error
 			},
 		],
@@ -134,13 +134,20 @@ module.exports = {
 		"function-url-quotes": "always", // Always use quotes around URLs
 		"font-weight-notation": "numeric", // Use numeric font-weight values
 		"font-family-name-quotes": "always-where-recommended", // Quotes around font family names where recommended
+		"comment-no-empty": true, // No empty comments
 		"comment-whitespace-inside": "always", // Space inside comments
-		"comment-empty-line-before": "always", // Empty line before comments
+		"comment-empty-line-before": [
+			"always",
+			{
+				except: ["first-nested"], // Exception: no empty line before first nested comment
+			},
+		], // Empty line before comments
 		"at-rule-no-vendor-prefix": true, // No vendor prefixes for at-rules
 		"rule-empty-line-before": [
-			"always-multi-line", // Требуется пустая строка перед правилами в многострочном стиле
+			"always-multi-line", // Empty line before multi-line rules
 			{
-				except: ["first-nested"], // Исключение: не требует пустой строки перед первым вложенным правилом
+				ignore: ["after-comment", "inside-block"],
+				except: ["first-nested"], // Exception: no empty line before first nested rule
 			},
 		],
 		"selector-pseudo-element-colon-notation": "single", // Use single colon for pseudo-elements
