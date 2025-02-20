@@ -59,11 +59,11 @@ const paths = {
 		dist: "./dist/images",
 	},
 	pic: {
-		src: "./src/pic/**/*{!svg}",
+		src: "./src/pic/**/*",
 		dist: "./dist/pic",
 	},
 	svg: {
-		src: "./src/pic/**/*.svg",
+		src: "./src/pic/svg/**/*.svg",
 		dist: "./dist/pic",
 	},
 };
