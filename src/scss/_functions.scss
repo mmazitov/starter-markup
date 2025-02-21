@@ -1,4 +1,35 @@
-@function rem($px) {
-	$base-font-size: 16;
-	@return ($px / $base-font-size) * 1rem;
+@use "sass:meta";
+@use "sass:math";
+
+@function fs($value) {
+	$base-font-size: 16px; // Базовый размер для конвертации
+
+	// Проверка на выражение типа calc (например, "32px / 2")
+	@if meta.type-of($value) ==
+		"string" and
+		(
+			str-index($value, "/") or
+				str-index($value, "+") or
+				str-index($value, "-") or
+				str-index($value, "*")
+		)
+	{
+		// Если выражение с делением, обрабатываем его через math.div
+		$processed-value: calc(#{str-slice($value, 1)});
+		@return math.div($processed-value, $base-font-size) * 1rem;
+	}
+
+	// Если передано значение типа number
+	@if meta.type-of($value) == "number" {
+		@if math.unit($value) == "px" {
+			@return math.div($value, $base-font-size) * 1rem;
+		} @else if math.unit($value) == "" {
+			@return math.div($value * 1px, $base-font-size) * 1rem;
+		} @else {
+			@warn "Invalid unit '#{$value}'. Please provide a number or px.";
+		}
+	}
+
+	@warn "Invalid value '#{$value}'. Please provide a number or px.";
+	@return null;
 }

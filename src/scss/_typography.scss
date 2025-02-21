@@ -1,20 +1,32 @@
 @use "./variables" as *;
 @use "./mixins" as *;
+@use "./functions" as *;
+@use "sass:math";
 
 * {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
 }
+$base-size: 16px;
 
 body {
+	margin: fs(32px - 80);
+	padding: fs(16 + 2);
+	font-size: fs(16px + 8px);
+	line-height: fs(24px * 2);
+
 	//font-family: $main-font--regular;
 
 	//@include font($fs-xl, $leading-xrelaxed);
 
 	color: var(--color-text);
 	background: var(--color-body);
+
+	border-width: fs(320px / 2);
 	-webkit-font-smoothing: antialiased;
+
+	@include transition(border color);
 }
 
 h1,

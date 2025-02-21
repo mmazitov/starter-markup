@@ -1,18 +1,18 @@
 @use "sass:meta";
 @use "sass:list";
+@use "sass:string";
 
-@mixin transition($properties: all, $duration: 0.5s, $timing-function: ease-in-out, $delay: 0s) {
+@mixin transition($properties, $duration: 0.5s, $timing-function: ease-in-out, $delay: 0s) {
 	$transitions: ();
 
-	@if meta.type-of($properties) == "List" {
-		@each $property in $properties {
-			$transitions: list.append($transitions, $property $duration $timing-function $delay);
-		}
-	} @else {
-		$transitions: $properties $duration $timing-function $delay;
+	@each $property in $properties {
+		$transition-value: string.unquote("#{$property} #{$duration} #{$timing-function} #{$delay}");
+		$transitions: list.append($transitions, $transition-value, comma);
 	}
 
-	transition: $transitions;
+	@each $prefix in ("-webkit-", "-moz-", "-ms-", "-o-", "") {
+		#{$prefix}transition: $transitions;
+	}
 }
 
 /* stylelint-disable rule-empty-line-before */
