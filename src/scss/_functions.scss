@@ -1,10 +1,8 @@
-@use "sass:meta";
+@use "variables" as *;
 @use "sass:math";
+@use "sass:meta";
 
-@function fs($value) {
-	$base-font-size: 16px; // Базовый размер для конвертации
-
-	// Проверка на выражение типа calc (например, "32px / 2")
+@function font-rem($value) {
 	@if meta.type-of($value) ==
 		"string" and
 		(
@@ -14,12 +12,9 @@
 				str-index($value, "*")
 		)
 	{
-		// Если выражение с делением, обрабатываем его через math.div
 		$processed-value: calc(#{str-slice($value, 1)});
 		@return math.div($processed-value, $base-font-size) * 1rem;
 	}
-
-	// Если передано значение типа number
 	@if meta.type-of($value) == "number" {
 		@if math.unit($value) == "px" {
 			@return math.div($value, $base-font-size) * 1rem;
@@ -32,4 +27,42 @@
 
 	@warn "Invalid value '#{$value}'. Please provide a number or px.";
 	@return null;
+}
+
+@function strip-unit($value) {
+	@return math.div($value, $value * 0 + 1);
+}
+
+@function font-fluid($min-size, $max-size) {
+	$min-size: strip-unit($min-size);
+	$max-size: strip-unit($max-size);
+	$min-viewport: strip-unit($min-viewport);
+	$max-viewport: strip-unit($max-viewport);
+	$slope: math.div($max-size - $min-size, $max-viewport - $min-viewport) * 100;
+	$intersection: $min-size - math.div($slope * $min-viewport, 100);
+	$min-size-rem: font-rem($min-size * 1px);
+	$max-size-rem: font-rem($max-size * 1px);
+	$intersection-rem: font-rem($intersection * 1px);
+	@return clamp(#{$min-size-rem}, #{$intersection-rem} + #{$slope}vw, #{$max-size-rem});
+}
+
+@function line-height-fluid($desktop-line-height-px) {
+	$min-line-height: strip-unit($desktop-line-height-px) * 0.8;
+	$max-line-height: strip-unit($desktop-line-height-px);
+	$slope: math.div(
+		($max-line-height - $min-line-height),
+		strip-unit($max-viewport - $min-viewport)
+	);
+	$intercept: $min-line-height - ($slope * strip-unit($min-viewport));
+	@return clamp(#{$min-line-height}px, #{$intercept}px + #{$slope * 100}vw, #{$max-line-height}px);
+}
+
+@function size-fluid($min-size, $max-size) {
+	$min-size: strip-unit($min-size);
+	$max-size: strip-unit($max-size);
+	$min-viewport: strip-unit($min-viewport);
+	$max-viewport: strip-unit($max-viewport);
+	$slope: math.div($max-size - $min-size, $max-viewport - $min-viewport) * 100;
+	$intersection: $min-size - math.div($slope * $min-viewport, 100);
+	@return clamp(#{$min-size}px, #{$intersection}px + #{$slope}vw, #{$max-size}px);
 }
